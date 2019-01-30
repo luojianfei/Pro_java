@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!-- LoadingDialog 背景颜色 -->
+    <color name="bg_loading_color">#CC000000</color>
+    <!-- app主要颜色 -->
+    <color name="app_main_color">#3F51B5</color>
+    <!-- app 按钮部分透明点击后颜色 -->
+    <color name="app_main_alph_press_color">#E03F51B5</color>
+    <!-- app 按钮部分透明主要颜色 -->
+    <color name="app_main_alph_color">#A83F51B5</color>
+    <!-- 白底 点击颜色 -->
+    <color name="bg_white_press">#E2E5EC</color>
+</resources>

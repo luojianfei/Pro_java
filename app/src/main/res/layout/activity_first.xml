@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/vp"
+            ></android.support.v4.view.ViewPager>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/outside_padding"
+            android:layout_marginRight="@dimen/outside_padding"
+            android:paddingLeft="@dimen/x16"
+            android:paddingRight="@dimen/x16"
+            android:paddingTop="@dimen/x6"
+            android:paddingBottom="@dimen/x6"
+            android:gravity="center"
+            android:id="@+id/btn_jump"
+            android:textColor="#FFFFFF"
+            android:onClick="@{clickListener}"
+            android:background="@drawable/selector_launch_jump"
+            android:text="@{@string/str_format_jump}"
+            />
+    </RelativeLayout>
+
+</layout>

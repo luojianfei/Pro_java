@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewClickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="title"
+            type="String"/>
+        <variable
+            name="rightContent"
+            type="String"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/app_main_color">
+        
+        <ImageView
+            android:layout_width="@dimen/x90"
+            android:layout_height="@dimen/x90"
+            android:scaleType="centerInside"
+            android:clickable="true"
+            android:onClick="@{viewClickListener}"
+            android:id="@+id/iv_back"
+            android:padding="@dimen/x20"
+            android:src="@drawable/selector_back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/title_height"
+            android:id="@+id/tv_title"
+            android:textColor="#FFFFFF"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/x100"
+            android:layout_marginLeft="@dimen/x100"
+            android:textSize="@dimen/text_size_title"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{title}"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/x90"
+            android:layout_height="@dimen/x90"
+            android:scaleType="centerInside"
+            android:clickable="true"
+            android:padding="@dimen/x23"
+            android:onClick="@{viewClickListener}"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_title_right_img"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x90"
+            android:scaleType="centerInside"
+            android:clickable="true"
+            android:paddingRight="@dimen/outside_padding"
+            android:gravity="center"
+            android:text="@{rightContent}"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/selector_white_tv"
+            android:onClick="@{viewClickListener}"
+            android:textSize="@dimen/text_size_title_right"
+            android:id="@+id/tv_right"
+            />
+        
+    </RelativeLayout>
+    
+</layout>

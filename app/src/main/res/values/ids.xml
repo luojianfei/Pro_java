@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="iv_back" type="id"/>
+    <item name="iv_right" type="id"/>
+    <item name="layout_title" type="id"/>
+</resources>

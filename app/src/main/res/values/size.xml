@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- dialog圆角尺寸 -->
+    <dimen name="dialog_radiu">@dimen/x20</dimen>
+    <!-- button圆角尺寸 -->
+    <dimen name="button_radiu">@dimen/x10</dimen>
+    <!-- button圆弧尺寸 -->
+    <dimen name="button_circular">@dimen/x30</dimen>
+    <!-- 外边距尺寸 -->
+    <dimen name="outside_padding">@dimen/x26</dimen>
+    <!--title height大小-->
+    <dimen name="title_height">@dimen/x90</dimen>
+    <!-- title字体尺寸 -->
+    <dimen name="text_size_title">@dimen/x34</dimen>
+    <!-- title右边字体尺寸 -->
+    <dimen name="text_size_title_right">@dimen/x28</dimen>
+</resources>
