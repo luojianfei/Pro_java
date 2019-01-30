@@ -4,9 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
-/**
- * Created by zhy on 15/5/3.
- */
 public class CustomSetting {
 
     private int baseW;

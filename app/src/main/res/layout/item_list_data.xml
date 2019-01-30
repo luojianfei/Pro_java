@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="dataInfo"
+            type="com.leo.pro.app.entity.MyDataInfo"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x180"
+        android:paddingRight="@dimen/outside_padding"
+        android:paddingLeft="@dimen/outside_padding">
+        <ImageView
+            android:layout_width="@dimen/x220"
+            android:layout_height="@dimen/x180"
+            android:id="@+id/iv_img"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x28"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/inside_padding"
+            android:text="@{dataInfo.title}"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/x28"
+            android:layout_marginLeft="@dimen/inside_padding"
+            android:text="@{dataInfo.name}"
+            />
+    </RelativeLayout>
+
+</layout>

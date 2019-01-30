@@ -5,9 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.leo.pro.utils.ActivityUtils;
-import com.leo.pro.utils.AppUtils;
-import com.leo.pro.utils.SPUtils;
+import com.leo.pro.app.utils.ActivityUtils;
+import com.leo.pro.app.utils.AppUtils;
+import com.leo.pro.app.utils.SPUtils;
 
 /**
  * 创建人 LEO
@@ -22,9 +22,9 @@ public class TransitionPageActivity extends Activity {
         boolean isFirstLaunch = (boolean) SPUtils.get(this, AppUtils.getAppName(this),"isFirstLaunch",true);
         if(isFirstLaunch){//第一次启动app
             SPUtils.put(this,AppUtils.getAppName(this),"isFirstLaunch",false);
-            ActivityUtils.startActivityIntent(this,FirstLaunchActivity.class);
+            ActivityUtils.startActivityIntent(this,GuideActivity.class);
         }else{//非第一次启动app
-            ActivityUtils.startActivityIntent(this,NoFirstLaunchActivity.class);
+            ActivityUtils.startActivityIntent(this,WelcomeActivity.class);
         }
         finish();
     }

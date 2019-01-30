@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+    </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_title"
-            android:id="@+id/layout_title"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/root_fragment_layout"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x2"
+            android:background="#CCCCCC"/>
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_main"
+                style="@style/main_radiobutton_stype"
+                android:checked="true"
+                android:text="主页" />
+
+            <RadioButton
+                android:id="@+id/rb_fun1"
+                style="@style/main_radiobutton_stype"
+                android:text="模块1" />
+
+            <RadioButton
+                android:id="@+id/rb_fun2"
+                style="@style/main_radiobutton_stype"
+                android:text="模块2" />
+
+            <RadioButton
+                android:id="@+id/rb_fun3"
+                style="@style/main_radiobutton_stype"
+                android:text="模块3" />
+        </RadioGroup>
     </LinearLayout>
 </layout>

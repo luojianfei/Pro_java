@@ -1,6 +1,6 @@
 package com.leo.pro.login.contract;
 
-import com.leo.pro.nBase.NContract;
+import com.leo.pro.app.nBase.NContract;
 
 /**
  * 创建人 LEO

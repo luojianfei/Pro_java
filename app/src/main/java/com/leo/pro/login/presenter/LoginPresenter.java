@@ -2,7 +2,7 @@ package com.leo.pro.login.presenter;
 
 import com.leo.pro.login.contract.LoginContract;
 import com.leo.pro.login.model.LoginModel;
-import com.leo.pro.nBase.NPresenter;
+import com.leo.pro.app.nBase.NPresenter;
 
 /**
  * 创建人 LEO

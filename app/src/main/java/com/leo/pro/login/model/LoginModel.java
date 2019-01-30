@@ -1,8 +1,7 @@
 package com.leo.pro.login.model;
 
 import com.leo.pro.login.contract.LoginContract;
-import com.leo.pro.login.model.LoginModel;
-import com.leo.pro.nBase.NModel;
+import com.leo.pro.app.nBase.NModel;
 
 /**
  * 创建人 LEO

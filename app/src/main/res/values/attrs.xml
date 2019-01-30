@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GuidePointView">
+        <!-- 圆点半径 -->
+        <attr name="pointRadiu" format="dimension"/>
+        <!-- 圆点正常颜色 -->
+        <attr name="pointColor" format="color"/>
+        <!-- 圆点占用颜色 -->
+        <attr name="pointCupyColor" format="color"/>
+        <!-- 圆点间距 -->
+        <attr name="pointSpacing" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="CustomRecyclerView">
+        <attr name="dividerHeight" format="dimension"/>
+        <attr name="dividerColor" format="color"/>
+    </declare-styleable>
+</resources>

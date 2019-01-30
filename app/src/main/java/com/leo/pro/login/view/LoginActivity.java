@@ -2,13 +2,13 @@ package com.leo.pro.login.view;
 
 import android.view.View;
 
-import com.leo.pro.MainActivity;
 import com.leo.pro.R;
-import com.leo.pro.base.BaseActivity;
+import com.leo.pro.app.base.BaseActivity;
 import com.leo.pro.databinding.ActivityLoginBinding;
 import com.leo.pro.login.contract.LoginContract;
 import com.leo.pro.login.presenter.LoginPresenter;
-import com.leo.pro.utils.ActivityUtils;
+import com.leo.pro.main.view.MainActivity;
+import com.leo.pro.app.utils.ActivityUtils;
 
 /**
  * 创建人 LEO

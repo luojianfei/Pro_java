@@ -13,4 +13,6 @@
     <color name="app_main_alph_color">#A83F51B5</color>
     <!-- 白底 点击颜色 -->
     <color name="bg_white_press">#E2E5EC</color>
+    <!-- 列表分割线颜色 -->
+    <color name="divider_color">#CCCCCC</color>
 </resources>

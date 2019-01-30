@@ -2,9 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View"/>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
         <variable
             name="content"
             type="String"/>
+        <variable
+            name="isLast"
+            type="boolean"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,6 +21,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@{content}"
+            />
+        <Button
+            android:layout_width="@dimen/x220"
+            android:layout_height="@dimen/x72"
+            android:textColor="@color/selector_white_app_text"
+            android:background="@drawable/selector_normal_button"
+            android:textSize="@dimen/text_size_title"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/x140"
+            android:onClick="@{clickListener}"
+            android:visibility="@{isLast?View.VISIBLE:View.GONE}"
+            android:id="@+id/btn_start"
+            android:text="开始使用"
             />
     </RelativeLayout>
 

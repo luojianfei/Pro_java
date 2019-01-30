@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".launch.FirstLaunchActivity" />
-        <activity android:name=".launch.NoFirstLaunchActivity" />
+        <activity android:name=".launch.GuideActivity" />
+        <activity android:name=".launch.WelcomeActivity" />
         <activity android:name=".login.view.LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".main.view.MainActivity" />
     </application>
 
 </manifest>

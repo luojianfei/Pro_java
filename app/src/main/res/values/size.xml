@@ -5,9 +5,11 @@
     <!-- button圆角尺寸 -->
     <dimen name="button_radiu">@dimen/x10</dimen>
     <!-- button圆弧尺寸 -->
-    <dimen name="button_circular">@dimen/x30</dimen>
+    <dimen name="button_circular">@dimen/x60</dimen>
     <!-- 外边距尺寸 -->
     <dimen name="outside_padding">@dimen/x26</dimen>
+    <!-- 内边距尺寸 -->
+    <dimen name="inside_padding">@dimen/x12</dimen>
     <!--title height大小-->
     <dimen name="title_height">@dimen/x90</dimen>
     <!-- title字体尺寸 -->
