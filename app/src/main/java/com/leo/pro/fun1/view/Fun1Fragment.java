@@ -1,6 +1,7 @@
 package com.leo.pro.fun1.view;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.leo.pro.R;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * 创建时间 2019/1/30 15:02
  */
 
-public class Fun1Fragment extends BaseFragment<Fun1Presenter,FragmentFun1Binding> implements Fun1Contract.View {
+public class Fun1Fragment extends BaseFragment<Fun1Presenter,FragmentFun1Binding> implements Fun1Contract.View,SwipeRefreshLayout.OnRefreshListener {
     @Override
     protected int onSetContentView() {
         return R.layout.fragment_fun1;
@@ -37,11 +38,26 @@ public class Fun1Fragment extends BaseFragment<Fun1Presenter,FragmentFun1Binding
             mDataInfos.add(new MyDataInfo(""+i,"name"+i,"title"+i,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548845457017&di=e9842bb94def0ffce4add64ec9326624&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Df29d02216d09c93d13ff06b4f75492a9%2F71cf3bc79f3df8dcea8ac7bec711728b4710286d.jpg")) ;
         }
         MyListDataAdapter adapter = new MyListDataAdapter(mDataInfos,getActivity()) ;
-        mViewBinding.crvList.setAdapter(adapter); ;
+        mViewBinding.crvList.setAdapter(adapter);
+        initRefreshLayout();
+    }
+
+    /**
+     * 下拉刷新初始化
+     */
+    private void initRefreshLayout() {
+        mViewBinding.srl.setOnRefreshListener(this);
+        mViewBinding.srl.setProgressViewOffset(false, 0, 52);
+        mViewBinding.srl.setColorSchemeResources(R.color.app_main_color);
     }
 
     @Override
     public void onInitListener() {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        mViewBinding.srl.setRefreshing(false);
     }
 }

@@ -9,12 +9,17 @@
         >
         <include layout="@layout/layout_title"
             android:id="@+id/layout_title"/>
-        <com.leo.pro.app.customView.CustomRecyclerView
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:dividerHeight="@dimen/x8"
-            android:id="@+id/crv_list"
-            />
+            android:layout_height="wrap_content"
+            android:id="@+id/srl"
+            >
+            <com.leo.pro.app.customView.CustomRecyclerView
+                android:id="@+id/crv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:dividerHeight="@dimen/x8" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
 </layout>
