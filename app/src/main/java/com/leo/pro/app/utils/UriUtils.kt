@@ -21,11 +21,10 @@ object UriUtils {
      * @return
      */
     fun getUri(context: Context, file: File): Uri? {
-        var uri: Uri? = null
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//Android7.0
-            uri = FileProvider.getUriForFile(context, context.packageName + ".fileprovider", file)
+        var uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//Android7.0
+            FileProvider.getUriForFile(context, context.packageName + ".fileprovider", file)
         } else {
-            uri = Uri.fromFile(file)
+            Uri.fromFile(file)
         }
         return uri
     }
