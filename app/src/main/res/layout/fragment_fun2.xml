@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="progress"
+            type="String"/>
+        <variable
+            name="speed"
+            type="String"/>
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -8,12 +19,43 @@
         >
         <include layout="@layout/layout_title"
             android:id="@+id/layout_title"/>
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="fun2"
-            android:layout_centerInParent="true"
+            android:id="@+id/bt_log"
+            android:onClick="@{clickListener}"
+            android:text="错误日志"
             />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_get_version"
+            android:onClick="@{clickListener}"
+            android:text="获取版本信息"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_down_apk"
+            android:onClick="@{clickListener}"
+            android:text="下载最新APK"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{progress}"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x26"
+                android:text="@{speed}"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 </layout>

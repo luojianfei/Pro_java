@@ -3,7 +3,11 @@
     package="com.leo.pro">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".app.CustomApplication"
         android:allowBackup="true"
@@ -22,6 +26,7 @@
         <activity android:name=".launch.WelcomeActivity" />
         <activity android:name=".login.view.LoginActivity" />
         <activity android:name=".main.view.MainActivity" />
+        <activity android:name=".app.ErrorLogActivity" />
     </application>
 
 </manifest>

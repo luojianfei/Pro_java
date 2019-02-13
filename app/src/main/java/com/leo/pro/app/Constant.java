@@ -8,4 +8,7 @@ package com.leo.pro.app;
 public class Constant {
     public static final int DOUBLE_CLICK_EXIT_DENY = 2000 ;//双击间隔500ms以内退出应用
     public static final int REQUEST_CODE_GETCONTACTS = 2001 ;//获取联系人
+    public static final String DOWNLOAD_APK_SAVE_NAME = "new.apk" ;//下载的apk保存名字
+    //**********************接受到消息唤醒屏幕的时间*********************
+    public final static int WAKELOCKTIME = 5000;
 }

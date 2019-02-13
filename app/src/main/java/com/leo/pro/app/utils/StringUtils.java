@@ -21,21 +21,23 @@ public class StringUtils {
 
     /**
      * 判断字符串是否是整形字符串
+     *
      * @param integerStr 整形字符串
      * @return
      */
-    public static long stringIsInteger(String integerStr){
-        if(TextUtil.isEmpty(integerStr)){
-            return -1 ;
-        }else{
-            try{
-                long value = Long.parseLong(integerStr) ;
-                return value ;
-            }catch (Exception e){
-                return -1 ;
+    public static long stringIsInteger(String integerStr) {
+        if (TextUtil.isEmpty(integerStr)) {
+            return -1;
+        } else {
+            try {
+                long value = Long.parseLong(integerStr);
+                return value;
+            } catch (Exception e) {
+                return -1;
             }
         }
     }
+
     /**
      * 判断字符串是否为空
      */
@@ -46,12 +48,13 @@ public class StringUtils {
 
     /**
      * 格式化影像资料信息
+     *
      * @param info
      * @param id
      * @return
      */
-    public static String imageDataItemFormat(String info,String id){
-        return String.format("%s-%s",info,id) ;
+    public static String imageDataItemFormat(String info, String id) {
+        return String.format("%s-%s", info, id);
     }
 
     public static String md5(String string) {
@@ -74,26 +77,26 @@ public class StringUtils {
 
     /**
      * char[]转byte[]
+     *
      * @param chars
      * @return
      */
-    public static byte[] getBytes (char[] chars) {
-        Charset cs = Charset.forName ("UTF-8");
-        CharBuffer cb = CharBuffer.allocate (chars.length);
-        cb.put (chars);
-        cb.flip ();
-        ByteBuffer bb = cs.encode (cb);
+    public static byte[] getBytes(char[] chars) {
+        Charset cs = Charset.forName("UTF-8");
+        CharBuffer cb = CharBuffer.allocate(chars.length);
+        cb.put(chars);
+        cb.flip();
+        ByteBuffer bb = cs.encode(cb);
 
         return bb.array();
     }
+
     /**
      * 将十六进制字符数组转换为字节数组
      *
-     * @param data
-     *            十六进制char[]
+     * @param data 十六进制char[]
      * @return byte[]
-     * @throws RuntimeException
-     *             如果源十六进制字符数组是一个奇怪的长度，将抛出运行时异常
+     * @throws RuntimeException 如果源十六进制字符数组是一个奇怪的长度，将抛出运行时异常
      */
     public static byte[] decodeHex(char[] data) {
         int len = data.length;
@@ -111,16 +114,14 @@ public class StringUtils {
         }
         return out;
     }
+
     /**
      * 将十六进制字符转换成一个整数
      *
-     * @param ch
-     *            十六进制char
-     * @param index
-     *            十六进制字符在字符数组中的位置
+     * @param ch    十六进制char
+     * @param index 十六进制字符在字符数组中的位置
      * @return 一个整数
-     * @throws RuntimeException
-     *             当ch不是一个合法的十六进制字符时，抛出运行时异常
+     * @throws RuntimeException 当ch不是一个合法的十六进制字符时，抛出运行时异常
      */
     protected static int toDigit(char ch, int index) {
         int digit = Character.digit(ch, 16);
@@ -130,6 +131,7 @@ public class StringUtils {
         }
         return digit;
     }
+
     /**
      * writeObject 方法负责写入特定类的对象的状态，以便相应的 readObject 方法可以还原它
      * 最后，用Base64.encode将字节文件转换成Base64编码保存在String中
@@ -176,10 +178,11 @@ public class StringUtils {
 
     /**
      * byte数组转二进制
+     *
      * @param b
      * @return
      */
-    public static String conver2HexStr(byte [] b) {
+    public static String conver2HexStr(byte[] b) {
         StringBuffer result = new StringBuffer();
         for (int i = 0; i < b.length; i++) {
             result.append(Long.toString(b[i] & 0xff, 2) + ",");
@@ -187,4 +190,24 @@ public class StringUtils {
         return result.toString().substring(0, result.length() - 1);
     }
 
+    /**
+     * 转化下载速度
+     *
+     * @param realSpped 字节/秒
+     * @return
+     */
+    public static String getDownloadSpeed(float realSpped) {
+        String speed = "0.00B/s";
+        if (realSpped < 1000 || Float.isInfinite(realSpped)) {//速度为B/s
+            if (!Float.isInfinite(realSpped)) {
+                speed = String.format("%.2fB/s", realSpped);
+            }
+        }else if (realSpped >= 1000 * 1024) {//速度大于1M/s
+            speed = String.format("%.2fM/s", realSpped / (float) (1024 * 1024));
+        } else if (realSpped >= 1000) {//速度大于1KB/s
+            speed = String.format("%.2fKB/s", realSpped / (float) 1024);
+        }
+        return speed;
     }
+
+}

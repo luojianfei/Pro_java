@@ -15,4 +15,6 @@
     <color name="bg_white_press">#E2E5EC</color>
     <!-- 列表分割线颜色 -->
     <color name="divider_color">#F8F8F8</color>
+    <!-- 列表背景 -->
+    <color name="list_bg">#E8F1F8</color>
 </resources>

@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.leo.pro.app.utils.StringUtils;
+import com.leo.pro.app.utils.TextUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,17 +29,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-//import com.squareup.okhttp.Call;
-//import com.squareup.okhttp.Callback;
-//import com.squareup.okhttp.FormEncodingBuilder;
-//import com.squareup.okhttp.Headers;
-//import com.squareup.okhttp.MediaType;
-//import com.squareup.okhttp.MultipartBuilder;
-//import com.squareup.okhttp.OkHttpClient;
-//import com.squareup.okhttp.Request;
-//import com.squareup.okhttp.RequestBody;
-//import com.squareup.okhttp.Response;
 
 public class HttpClient {
     private static HttpClient mInstance;
@@ -226,9 +217,10 @@ public class HttpClient {
      * @param destFileDir 本地文件存储的文件夹
      * @param callback
      */
-    private void _downloadAsyn(final String url, final String destFileDir, final NetCallBack callback) {
+    private void _downloadAsyn(final String url, final String destFileDir, final String saveName, final NetCallBack callback) {
         final Request request = new Request.Builder()
                 .url(url)
+//                .addHeader("range", "bytes=" + start + "-" + Math.min(start + DELTA, mTotal))//文件分段下载 实现断点下载
                 .build();
         final Call call = mOkHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -241,21 +233,39 @@ public class HttpClient {
             public void onResponse(Call call, Response response) throws IOException {
                 InputStream is = null;
                 byte[] buf = new byte[2048];
-                int len = 0;
+                int len;
                 FileOutputStream fos = null;
                 try {
+                    long totalLength = response.body().contentLength();//获取文件的总大小 1KB = 1024字节
                     is = response.body().byteStream();
-                    File file = new File(destFileDir, getFileName(url));
+                    File file = new File(destFileDir, TextUtil.isEmpty(saveName) ? getFileName(url) : saveName);
                     fos = new FileOutputStream(file);
+                    callback.onStart(totalLength);
+                    long startTimestamp = System.currentTimeMillis();//当前时间戳
+                    long endTimestamp;
+                    long downLength = 0;//已经下载长度
+                    long dLength = 0;//实时单位时间下载长度
                     while ((len = is.read(buf)) != -1) {
+                        downLength = downLength + len;
                         fos.write(buf, 0, len);
+                        endTimestamp = System.currentTimeMillis();
+                        dLength = dLength + len;
+                        int dT = (int) (endTimestamp - startTimestamp);
+                        if (dT >= 100) {//每过0.1秒回调一次
+                            float realSpeed = dLength * 1000 / (float) dT;//实时下载速度 字节/秒
+                            startTimestamp = endTimestamp;
+                            callback.onProgress(downLength * 100 / (float) totalLength, StringUtils.getDownloadSpeed(realSpeed));
+                            dLength = 0;
+                        }
                     }
+                    callback.onProgress(100, "0B/s");
                     fos.flush();
                     NetObj netObj = callback.netObj;
                     netObj.setData(file.getAbsolutePath())
                             .setCode("1")
                             .setMessge("下载文件成功");
                     //如果下载文件成功，第一个参数为文件的绝对路径
+                    callback.onComplete();//回调下载完成
                     sendSuccessResultCallback(netObj, callback);
                 } catch (IOException e) {
                     sendFailedStringCallback(response.request(), e, callback);
@@ -343,8 +353,8 @@ public class HttpClient {
     }
 
 
-    public static void downloadAsyn(String url, String destDir, NetCallBack callback) {
-        getInstance()._downloadAsyn(url, destDir, callback);
+    public static void downloadAsyn(String url, String destDir, String saveName, NetCallBack callback) {
+        getInstance()._downloadAsyn(url, destDir, saveName, callback);
     }
 
     //****************************
@@ -352,7 +362,7 @@ public class HttpClient {
 
     private Request buildMultipartFormRequest(String url, File[] files,
                                               String[] fileKeys, Param[] params) {
-        MultipartBody.Builder builder=  new MultipartBody.Builder().setType(MultipartBody.FORM);
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         params = validateParam(params);
 
         for (Param param : params) {
@@ -371,8 +381,8 @@ public class HttpClient {
                         fileBody);
             }
         }
-        RequestBody body=builder.build();
-        return   new Request.Builder().url(url).post(body).build();
+        RequestBody body = builder.build();
+        return new Request.Builder().url(url).post(body).build();
     }
 
     private String guessMimeType(String path) {
@@ -464,7 +474,7 @@ public class HttpClient {
             params = new Param[0];
         }
 
-        FormBody.Builder body = new FormBody.Builder() ;
+        FormBody.Builder body = new FormBody.Builder();
 
         for (Param param : params) {
             body.add(param.key, param.value);
