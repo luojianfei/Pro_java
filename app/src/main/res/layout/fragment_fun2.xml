@@ -11,6 +11,9 @@
         <variable
             name="speed"
             type="String"/>
+        <variable
+            name="path"
+            type="String"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,6 +59,11 @@
                 android:text="@{speed}"
                 />
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{path}"
+            />
     </LinearLayout>
 
 </layout>

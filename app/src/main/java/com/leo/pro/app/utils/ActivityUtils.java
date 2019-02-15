@@ -34,6 +34,16 @@ public class ActivityUtils {
     }
 
     /**
+     *  通过action来跳转页面 隐式意图
+     * @param context
+     * @param action
+     */
+    public static void startActivityForIntent(Context context,String action){
+        Intent intent = new Intent() ;
+        intent.setAction(action) ;
+        context.startActivity(intent);
+    }
+    /**
      * 打开浏览器
      * @param context
      * @param url

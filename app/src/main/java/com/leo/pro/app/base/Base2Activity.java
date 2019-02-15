@@ -20,6 +20,7 @@ import com.leo.pro.R;
 import com.leo.pro.app.Constant;
 import com.leo.pro.app.CustomApplication;
 import com.leo.pro.app.MyActivityManager;
+import com.leo.pro.app.utils.ActivityUtils;
 import com.leo.pro.app.utils.Res;
 import com.leo.pro.app.utils.ScreenUtils;
 

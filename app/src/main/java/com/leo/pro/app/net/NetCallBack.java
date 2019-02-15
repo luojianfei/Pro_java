@@ -30,9 +30,9 @@ public abstract  class NetCallBack<T>/* implements Callback */{
 
     /**
      * 完成
+     * @param filePath  文件保存地址
      */
-    public void onComplete() {}
-
+    public void onComplete(String filePath) {}
     /**
      * 下载进度
      * @param progress 进度

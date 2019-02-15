@@ -2,6 +2,7 @@ package com.leo.pro.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.leo.pro.app.utils.CrashHandler;
 
@@ -19,5 +20,11 @@ public class CustomApplication extends Application {
         super.onCreate();
         mContext = getApplicationContext() ;
         CrashHandler.getInstance().init(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 }

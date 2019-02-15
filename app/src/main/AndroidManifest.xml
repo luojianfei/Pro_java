@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.leo.pro">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <!--<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <!--<uses-permission android:name="android.permission.VIBRATE" />-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <application
+    <application  tools:replace="android:icon,android:theme"
         android:name=".app.CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,8 +25,18 @@
         </activity>
         <activity android:name=".launch.GuideActivity" />
         <activity android:name=".launch.WelcomeActivity" />
-        <activity android:name=".login.view.LoginActivity" />
-        <activity android:name=".main.view.MainActivity" />
+        <activity android:name=".login.view.LoginActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="com.leo.pro.test"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".main.view.MainActivity" >
+            <!--<intent-filter>-->
+                <!--<action android:name="com.leo.pro.test1"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".app.ErrorLogActivity" />
     </application>
 

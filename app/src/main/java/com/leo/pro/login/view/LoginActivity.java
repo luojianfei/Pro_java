@@ -28,7 +28,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter,ActivityLoginBind
 
     @Override
     public void onInitData() {
-
     }
 
     @Override

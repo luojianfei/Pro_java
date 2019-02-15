@@ -11,4 +11,6 @@ public class Constant {
     public static final String DOWNLOAD_APK_SAVE_NAME = "new.apk" ;//下载的apk保存名字
     //**********************接受到消息唤醒屏幕的时间*********************
     public final static int WAKELOCKTIME = 5000;
+    public static final String DATABASE_NAME = "app_store.db" ;//数据库名字
+    public static final int DATABASE_VERSION = 1 ;//数据库版本
 }

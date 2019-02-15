@@ -251,21 +251,21 @@ public class HttpClient {
                         endTimestamp = System.currentTimeMillis();
                         dLength = dLength + len;
                         int dT = (int) (endTimestamp - startTimestamp);
-                        if (dT >= 100) {//每过0.1秒回调一次
+                        if (dT >= 200) {//每过0.2秒回调一次
                             float realSpeed = dLength * 1000 / (float) dT;//实时下载速度 字节/秒
                             startTimestamp = endTimestamp;
                             callback.onProgress(downLength * 100 / (float) totalLength, StringUtils.getDownloadSpeed(realSpeed));
                             dLength = 0;
                         }
                     }
-                    callback.onProgress(100, "0B/s");
+                    callback.onProgress(100, "0B/s");//下载完成回调
                     fos.flush();
                     NetObj netObj = callback.netObj;
                     netObj.setData(file.getAbsolutePath())
                             .setCode("1")
                             .setMessge("下载文件成功");
                     //如果下载文件成功，第一个参数为文件的绝对路径
-                    callback.onComplete();//回调下载完成
+                    callback.onComplete(file.getPath());//回调下载完成
                     sendSuccessResultCallback(netObj, callback);
                 } catch (IOException e) {
                     sendFailedStringCallback(response.request(), e, callback);

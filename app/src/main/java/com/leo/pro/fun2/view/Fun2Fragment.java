@@ -76,9 +76,10 @@ public class Fun2Fragment extends BaseFragment<Fun2Presenter,FragmentFun2Binding
                     }
 
                     @Override
-                    public void onComplete() {
-                        super.onComplete();
+                    public void onComplete(String filePath) {
+                        super.onComplete(filePath);
                         mViewBinding.setSpeed("下载速度：0B/s");
+                        mViewBinding.setPath(filePath);
                     }
 
                     @Override

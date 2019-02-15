@@ -85,6 +85,11 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
         mViewBinding.layoutTitle.setViewClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+    }
+
     /**
      * 显示错误日志dialog
      */
@@ -103,7 +108,7 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
         public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             TextView tv = new TextView(mContext);
             tv.setPadding((int) getDimen(R.dimen.outside_padding, mContext), (int) getDimen(R.dimen.outside_padding, mContext), 0, (int) getDimen(R.dimen.outside_padding, mContext));
-            tv.setBackground(Res.getDrawableRes(R.drawable.selector_white_bg, mContext));
+            tv.setBackgroundDrawable(Res.getDrawableRes(R.drawable.selector_white_bg, mContext));
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(params);
             tv.setGravity(Gravity.CENTER_VERTICAL);

@@ -1,6 +1,9 @@
 package com.leo.pro.app.utils;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,6 +12,11 @@ import android.os.Looper;
 import android.os.Process;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.leo.pro.app.CustomApplication;
+import com.leo.pro.app.MyActivityManager;
+import com.leo.pro.launch.TransitionPageActivity;
+import com.leo.pro.main.view.MainActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -75,12 +83,20 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             }
         } else {
             // 已经人为处理,系统自己退出
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            Process.killProcess(Process.myPid());
+            Intent intent = new Intent(mContext, TransitionPageActivity.class);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(
+                    mContext, 0, intent, intent.getFlags());
+
+            AlarmManager mgr = (AlarmManager) mContext
+                    .getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
+                    pendingIntent);//1s之后重新启动app
+            MyActivityManager.exitApplicaion();
             System.exit(1);
         }
     }
@@ -95,17 +111,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (e == null) {// 异常是否为空
             return false;
         }
-        new Thread() {// 在主线程中弹出提示
-            @Override
-            public void run() {
-                Looper.prepare();
-                Toast.makeText(mContext, "捕获到异常", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-        }.start();
         collectErrorMessages();
         saveErrorMessages(e);
-        return false;
+        return true;
     }
 
     /**
@@ -163,7 +171,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         String result = writer.toString();
         sb.append(result);
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(new Date());
-        String fileName = "crash-" + time + ".log";
+        String fileName = "崩溃日志-" + time + ".log";
         // 有无SD卡
 //            String path = Environment.getExternalStorageDirectory().getPath() + "/crash/";
 //            String path = mContext.getFilesDir() + "/crash/";
