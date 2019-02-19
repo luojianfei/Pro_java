@@ -1,5 +1,7 @@
 package com.leo.pro.main.view;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,6 +28,12 @@ public class MainActivity extends BaseFragmentActivity<MainPresenter, ActivityMa
 
     private FragmentManager mFragmentManager;
     private ArrayList<Fragment> mFragments = new ArrayList<>() ;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mDoubleKeyExit = true ;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public int onSetContentView() {

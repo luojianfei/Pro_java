@@ -97,6 +97,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
                     pendingIntent);//1s之后重新启动app
             MyActivityManager.exitApplicaion();
+            Process.killProcess(Process.myPid());
             System.exit(1);
         }
     }

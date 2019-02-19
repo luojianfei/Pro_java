@@ -79,7 +79,6 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
         LogAdapter adapter = new LogAdapter();
         mViewBinding.crvLog.setAdapter(adapter);
     }
-
     @Override
     public void onInitListener() {
         mViewBinding.layoutTitle.setViewClickListener(this);
