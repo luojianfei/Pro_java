@@ -2,20 +2,19 @@ package com.leo.pro.app.net;
 
 import android.support.annotation.CallSuper;
 
+import com.leo.pro.app.utils.GenericSuperclassUtil;
+
 import okhttp3.Request;
 
 /**
  * Created by Administrator on 2016/8/2 0002.
  */
-public abstract  class NetCallBack<T>/* implements Callback */{
+public abstract  class NetCallBack<T extends Object>/* implements Callback */{
 
-    NetObj<T> netObj ;
+    public NetObj<T> netObj ;
 
-    public NetCallBack(){
-        this(null) ;
-    }
-    public NetCallBack(Class<T> clazz) {
-        netObj = new NetObj<T>(clazz) ;
+    public NetCallBack() {
+        netObj = new NetObj(GenericSuperclassUtil.getActualTypeArgument(getClass())) ;
     }
 
     public void onRequestComplete(){

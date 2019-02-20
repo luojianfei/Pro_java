@@ -32,6 +32,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/bt_shutdown"
+            android:onClick="@{clickListener}"
+            android:text="电脑关机"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/bt_get_version"
             android:onClick="@{clickListener}"
             android:text="获取版本信息"

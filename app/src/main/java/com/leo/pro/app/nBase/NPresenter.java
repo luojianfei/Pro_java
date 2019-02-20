@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
  */
 
 public class NPresenter<T extends NContract.View, E extends NContract.Model> {
+    public static final String REQUEST_LOADING_MSG = "请求数据中" ;//加载数据loading提示
     protected T view;
     protected E model;
     public Context context ;

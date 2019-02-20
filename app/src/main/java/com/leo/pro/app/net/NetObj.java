@@ -1,10 +1,15 @@
 package com.leo.pro.app.net;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
+import com.leo.pro.app.utils.GenericSuperclassUtil;
 import com.leo.pro.app.utils.JSONUtils;
 import com.leo.pro.app.utils.TextUtil;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -26,18 +31,16 @@ public class NetObj<T extends Object> {
         this.clazz = clazz;
     }
 
+    public Class<T> getClazz() {
+        return clazz;
+    }
+
     public NetObj(String jsonStr) {
         setJsonData(jsonStr);
     }
 
     public NetObj setJsonData(String jsonStr1) {
         this.jsonStr = jsonStr1 ;
-//        try {
-//            this.jsonStr = jsonStr.substring(1, jsonStr.length() - 1);
-//            this.ts = JSONUtils.jsonToArrayObj(data, clazz);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         try{
             this.code = JSONUtils.getValueForKey(jsonStr,"code");
             this.messge = JSONUtils.getValueForKey(jsonStr,"message");

@@ -10,6 +10,12 @@ public class VersionInfo {
     private String apkSize ;//apk大小
     private String newApkAddress ;//apk地址
 
+    public VersionInfo(String version, String apkSize, String newApkAddress) {
+        this.version = version;
+        this.apkSize = apkSize;
+        this.newApkAddress = newApkAddress;
+    }
+
     public String getVersion() {
         return version;
     }

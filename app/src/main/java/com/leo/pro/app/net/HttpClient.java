@@ -231,53 +231,58 @@ public class HttpClient {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                InputStream is = null;
-                byte[] buf = new byte[2048];
-                int len;
-                FileOutputStream fos = null;
-                try {
-                    long totalLength = response.body().contentLength();//获取文件的总大小 1KB = 1024字节
-                    is = response.body().byteStream();
-                    File file = new File(destFileDir, TextUtil.isEmpty(saveName) ? getFileName(url) : saveName);
-                    fos = new FileOutputStream(file);
-                    callback.onStart(totalLength);
-                    long startTimestamp = System.currentTimeMillis();//当前时间戳
-                    long endTimestamp;
-                    long downLength = 0;//已经下载长度
-                    long dLength = 0;//实时单位时间下载长度
-                    while ((len = is.read(buf)) != -1) {
-                        downLength = downLength + len;
-                        fos.write(buf, 0, len);
-                        endTimestamp = System.currentTimeMillis();
-                        dLength = dLength + len;
-                        int dT = (int) (endTimestamp - startTimestamp);
-                        if (dT >= 200) {//每过0.2秒回调一次
-                            float realSpeed = dLength * 1000 / (float) dT;//实时下载速度 字节/秒
-                            startTimestamp = endTimestamp;
-                            callback.onProgress(downLength * 100 / (float) totalLength, StringUtils.getDownloadSpeed(realSpeed));
-                            dLength = 0;
+                int code = response.code() ;
+                if(200 == code){
+                    InputStream is = null;
+                    byte[] buf = new byte[2048];
+                    int len;
+                    FileOutputStream fos = null;
+                    try {
+                        long totalLength = response.body().contentLength();//获取文件的总大小 1KB = 1024字节
+                        is = response.body().byteStream();
+                        File file = new File(destFileDir, TextUtil.isEmpty(saveName) ? getFileName(url) : saveName);
+                        fos = new FileOutputStream(file);
+                        callback.onStart(totalLength);
+                        long startTimestamp = System.currentTimeMillis();//当前时间戳
+                        long endTimestamp;
+                        long downLength = 0;//已经下载长度
+                        long dLength = 0;//实时单位时间下载长度
+                        while ((len = is.read(buf)) != -1) {
+                            downLength = downLength + len;
+                            fos.write(buf, 0, len);
+                            endTimestamp = System.currentTimeMillis();
+                            dLength = dLength + len;
+                            int dT = (int) (endTimestamp - startTimestamp);
+                            if (dT >= 200) {//每过0.2秒回调一次
+                                float realSpeed = dLength * 1000 / (float) dT;//实时下载速度 字节/秒
+                                startTimestamp = endTimestamp;
+                                callback.onProgress(downLength * 100 / (float) totalLength, StringUtils.getDownloadSpeed(realSpeed));
+                                dLength = 0;
+                            }
+                        }
+                        callback.onProgress(100, "0B/s");//下载完成回调
+                        fos.flush();
+                        NetObj netObj = callback.netObj;
+                        netObj.setData(file.getAbsolutePath())
+                                .setCode("1")
+                                .setMessge("下载文件成功");
+                        //如果下载文件成功，第一个参数为文件的绝对路径
+                        callback.onComplete(file.getPath());//回调下载完成
+                        sendSuccessResultCallback(netObj, callback);
+                    } catch (IOException e) {
+                        sendFailedStringCallback(response.request(), e, callback);
+                    } finally {
+                        try {
+                            if (is != null) is.close();
+                        } catch (IOException e) {
+                        }
+                        try {
+                            if (fos != null) fos.close();
+                        } catch (IOException e) {
                         }
                     }
-                    callback.onProgress(100, "0B/s");//下载完成回调
-                    fos.flush();
-                    NetObj netObj = callback.netObj;
-                    netObj.setData(file.getAbsolutePath())
-                            .setCode("1")
-                            .setMessge("下载文件成功");
-                    //如果下载文件成功，第一个参数为文件的绝对路径
-                    callback.onComplete(file.getPath());//回调下载完成
-                    sendSuccessResultCallback(netObj, callback);
-                } catch (IOException e) {
-                    sendFailedStringCallback(response.request(), e, callback);
-                } finally {
-                    try {
-                        if (is != null) is.close();
-                    } catch (IOException e) {
-                    }
-                    try {
-                        if (fos != null) fos.close();
-                    } catch (IOException e) {
-                    }
+                }else{
+                    callback.onNetError("访问服务器失败");
                 }
 
             }

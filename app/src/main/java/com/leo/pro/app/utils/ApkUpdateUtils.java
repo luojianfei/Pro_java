@@ -16,7 +16,8 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-import static com.leo.pro.app.net.RequestModelConfig.SERVER_CHECK_VERSION_ADDRESS;
+import static com.leo.pro.app.net.RequestModelConfig.CHECK_VERSION_NAME;
+import static com.leo.pro.app.net.RequestModelConfig.SERVER_BASE_ADDRESS;
 
 /**
  * 创建人 LEO
@@ -37,7 +38,7 @@ public class ApkUpdateUtils {
      * @return
      */
     public static void checkVersion(final Context context, final VersionCallBack callBack) {
-        HttpClient.downloadAsyn(SERVER_CHECK_VERSION_ADDRESS, FileUtils.getSaveVersionDirPath(context),"", new NetCallBack() {
+        HttpClient.downloadAsyn(SERVER_BASE_ADDRESS+CHECK_VERSION_NAME, FileUtils.getSaveVersionDirPath(context),"", new NetCallBack() {
             @Override
             public void onRequestComplete() {
                 super.onRequestComplete();
