@@ -10,6 +10,7 @@ import com.leo.pro.app.customView.CustomRecyclerView;
 import com.leo.pro.app.entity.MyDataInfo;
 import com.leo.pro.app.utils.DiaLogUtils;
 import com.leo.pro.databinding.FragmentFun1Binding;
+import com.leo.pro.fun1.adapter.MyListAdapter;
 import com.leo.pro.fun1.adapter.MyListDataAdapter;
 import com.leo.pro.fun1.contract.Fun1Contract;
 import com.leo.pro.fun1.presenter.Fun1Presenter;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 public class Fun1Fragment extends BaseFragment<Fun1Presenter, FragmentFun1Binding> implements Fun1Contract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private ArrayList<MyDataInfo> mDataInfos;
-    private MyListDataAdapter adapter;
+    private MyListAdapter adapter;
 
     @Override
     protected int onSetContentView() {
@@ -43,8 +44,9 @@ public class Fun1Fragment extends BaseFragment<Fun1Presenter, FragmentFun1Bindin
         for (int i = 0; i < 10; i++) {
             mDataInfos.add(new MyDataInfo("" + i, "name-1-" + i, "title" + i, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548845457017&di=e9842bb94def0ffce4add64ec9326624&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Df29d02216d09c93d13ff06b4f75492a9%2F71cf3bc79f3df8dcea8ac7bec711728b4710286d.jpg"));
         }
-        adapter = new MyListDataAdapter(mDataInfos, getActivity());
+        adapter = new MyListAdapter( getActivity(),mDataInfos);
         mViewBinding.crvList.setAdapter(adapter);
+        mViewBinding.crvList.setLoading(false);
         initRefreshLayout();
     }
 
@@ -52,17 +54,22 @@ public class Fun1Fragment extends BaseFragment<Fun1Presenter, FragmentFun1Bindin
      * 下拉刷新初始化
      */
     private void initRefreshLayout() {
-        mViewBinding.srl.setOnRefreshListener(this);
-        mViewBinding.srl.setProgressViewOffset(false, 0, 52);
-        mViewBinding.srl.setColorSchemeResources(R.color.app_main_color);
+//        mViewBinding.srl.setOnRefreshListener(this);
+//        mViewBinding.srl.setProgressViewOffset(false, 0, 52);
+//        mViewBinding.srl.setColorSchemeResources(R.color.app_main_color);
     }
 
     @Override
     public void onInitListener() {
-        mViewBinding.crvList.setLoadMoreListener(new CustomRecyclerView.LoadMoreListener() {
+        mViewBinding.crvList.setActionListener(new CustomRecyclerView.ListActionListener() {
             @Override
             public void onLoadMore(int currentPage) {
                 mPresenter.loadData(currentPage);
+            }
+
+            @Override
+            public void onRefresh() {
+
             }
         });
     }
@@ -76,7 +83,7 @@ public class Fun1Fragment extends BaseFragment<Fun1Presenter, FragmentFun1Bindin
     @Override
     public void setData(int page, ArrayList<MyDataInfo> dataInfos) {
         mViewBinding.crvList.setLoading(false);
-        mViewBinding.srl.setRefreshing(false);
+//        mViewBinding.srl.setRefreshing(false);
         if (page == 1) {
             mDataInfos.clear();
         }
