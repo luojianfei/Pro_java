@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.leo.pro.R;
 import com.leo.pro.app.base.BaseRecyclerViewAdapter;
 import com.leo.pro.app.utils.Res;
 import com.leo.pro.app.utils.ScreenUtils;
+import com.leo.pro.app.utils.ViewUtils;
 
 import static android.support.v4.view.ViewCompat.TYPE_TOUCH;
 
@@ -43,6 +45,7 @@ public class CustomRecyclerView extends RecyclerView {
     private ValueAnimator animator;
     private int mTouchSlop = 4;//最小滑动距离
     private int headHeight;
+    private RecyclerViewHeader viewHeader = null;
 
     public void resetPage() {
         currentPage = 1;
@@ -89,44 +92,47 @@ public class CustomRecyclerView extends RecyclerView {
         init(context);
     }
 
+    /**
+     * 关闭刷新状态
+     */
+    public void setEndLoading(){
+        if(viewHeader != null){
+            viewHeader.endLoading();
+        }
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
             if (!canScrollVertically(-1)) {
+                if (viewHeader == null) {
+                    viewHeader = (RecyclerViewHeader) getChildAt(0);
+                }
                 if (animator != null && animator.isRunning()) {
                     animator.cancel();
                 }
+                viewHeader.endLoading();
+                viewHeader.setEffective(true);
                 startY = e.getRawY();
             }
         }
         return super.onInterceptTouchEvent(e);
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (actionListener != null && needRefresh) {
             switch (e.getAction()) {
                 case MotionEvent.ACTION_MOVE:
-                    if (getTop() > mLayoutTop || (!canScrollVertically(-1) && e.getRawY() > startY)) {
-                        float offsetY = (e.getRawY() - startY)/4;
-                        layout(getLeft(), getTop() + Math.round(offsetY), getRight(), getBottom() + Math.round(offsetY));
-                        startY = e.getRawY();
+                    if ((getTop() > mLayoutTop || (!canScrollVertically(-1) && e.getRawY() > startY)) && hasHeadView) {
+                        float offsetY = (e.getRawY() - startY) / 4;
+                        viewHeader.setState(1,actionListener);
+                        viewHeader.setVisibleHeight((int) offsetY);
                         return true;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    final float top = getTop();
-                    final float botomm = getBottom();
-                    if (top - mLayoutTop > 0) {
-                        animator = ValueAnimator.ofFloat(0, top - mLayoutTop).setDuration(200);//0.2秒回弹动画 距离为list下拉距离
-                        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator animation) {
-                                Float value = (Float) animation.getAnimatedValue();
-                                layout(mLayoutLeft, (int) (top - value), mLayoutRight, (int) (botomm - value));
-                            }
-                        });
-                        animator.start();
-                    }
+                    viewHeader.setState(2,actionListener);
                     break;
             }
         }
@@ -196,18 +202,34 @@ public class CustomRecyclerView extends RecyclerView {
     protected void onMeasure(int widthSpec, int heightSpec) {
         super.onMeasure(widthSpec, heightSpec);
         if (getChildCount() > 0 && headHeight == 0) {
-            headHeight = getChildAt(0).getMeasuredHeight();
+//            headHeight = ViewUtils.getViewHeight(getChildAt(0)) ;
+//            MarginLayoutParams  params = (MarginLayoutParams) getLayoutParams();
+//            params.topMargin = -headHeight ;
+//            setLayoutParams(params);
 //            setPadding(0,-headHeight,0,0);
 //            System.out.print("");
         }
     }
 
+//    /**
+//     * 设置数据适配器
+//     *
+//     * @param adapter
+//     */
+//    public void setAdapter(BaseRecyclerViewAdapter adapter) {
+//        super.setAdapter(adapter);
+//    }
+
     /**
-     * 设置数据适配器
-     *
-     * @param adapter
+     * 是否有headView
      */
-    public void setAdapter(BaseRecyclerViewAdapter adapter) {
+    private boolean hasHeadView = false;
+
+    @Override
+    public void setAdapter(Adapter adapter) {
+        hasHeadView = BaseRecyclerViewAdapter.class.isAssignableFrom(adapter.getClass());
+        if (BaseRecyclerViewAdapter.class.isAssignableFrom(adapter.getClass())) {
+        }
         super.setAdapter(adapter);
     }
 
@@ -244,12 +266,16 @@ public class CustomRecyclerView extends RecyclerView {
 
     private float startY = 0;
 
+    //    private boolean initHead = false ;
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t , r, b);
-        if (mLayoutLeft == 0 && mLayoutTop == 0 && mLayoutRight == 0 && mLayoutBottom == 0) {
+        super.onLayout(changed, l, t, r, b);
+        if ((mLayoutLeft == 0 && mLayoutTop == 0 && mLayoutRight == 0 && mLayoutBottom == 0)) {
+//            if(headHeight > 0){
+//                initHead = true ;
+//            }
             mLayoutLeft = getLeft();
-            mLayoutTop = getTop() ;
+            mLayoutTop = getTop();
             mLayoutRight = getRight();
             mLayoutBottom = getBottom();
         }

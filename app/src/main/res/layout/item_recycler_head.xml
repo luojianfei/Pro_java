@@ -12,13 +12,13 @@
         android:layout_height="@dimen/x90">
 
         <TextView
-            android:visibility="@{state != 3 ?View.VISIBLE:View.GONE}"
+            android:visibility="@{state == 1 ?View.VISIBLE:View.GONE}"
             android:id="@+id/tv_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="@{state == 1?@string/str_refresh_state_1:@string/str_refresh_state_2}"
+            android:text="下拉刷新"
             android:textAllCaps="false"
             android:textSize="@dimen/x18"
             android:textStyle="bold"/>
@@ -28,21 +28,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="@{state != 3 ?View.INVISIBLE:View.VISIBLE}">
+            android:visibility="@{state != 2 ?View.INVISIBLE:View.VISIBLE}">
 
             <ProgressBar
                 android:layout_width="@dimen/x60"
                 android:layout_height="@dimen/x60"
-                android:indeterminateTint="@color/app_main_color"
+                android:indeterminateDrawable="@drawable/progressbar"
                 style="?android:progressBarStyleInverse"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/x40"
+                android:paddingLeft="@dimen/x26"
                 android:text="刷新中..."
-                android:textSize="@dimen/x15"/>
+                android:textSize="@dimen/x22"/>
         </LinearLayout>
     </FrameLayout>
 

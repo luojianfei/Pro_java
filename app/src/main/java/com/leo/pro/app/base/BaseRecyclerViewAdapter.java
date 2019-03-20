@@ -7,8 +7,11 @@ import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.leo.pro.R;
+import com.leo.pro.app.customView.RecyclerViewHeader;
+import com.leo.pro.app.utils.ViewUtils;
 import com.leo.pro.databinding.ItemRecyclerHeadBinding;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public abstract class BaseRecyclerViewAdapter<T extends Object> extends Recycler
             return getItemViewTypeWhithoutHead(position);
         }
     }
+
     public int getItemViewTypeWhithoutHead(int position) {//除了 HeadView之外的itemView
         return TYPE_ITEM_OTHER;
     }
@@ -45,11 +49,11 @@ public abstract class BaseRecyclerViewAdapter<T extends Object> extends Recycler
     @Override
     public CustomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM_HEAD) {
-            headView = View.inflate(context, R.layout.item_recycler_head, null);
-            return new CustomHolder<ItemRecyclerHeadBinding>(headView);
+            headView = new RecyclerViewHeader(context);
+            return new CustomHolder(headView);
         } else {
             return getItemView(parent, viewType);
-}
+        }
     }
 
     public abstract CustomHolder getItemView(ViewGroup parent, int viewType);
@@ -57,7 +61,7 @@ public abstract class BaseRecyclerViewAdapter<T extends Object> extends Recycler
     @Override
     public final void onBindViewHolder(CustomHolder holder, int position) {
         if (position > 0) {
-            setData(holder, position-1);
+            setData(holder, position - 1);
         }
     }
 
@@ -74,7 +78,11 @@ public abstract class BaseRecyclerViewAdapter<T extends Object> extends Recycler
 
         public CustomHolder(View itemView) {
             super(itemView);
-            viewBinding = DataBindingUtil.bind(itemView);
+            try {
+                viewBinding = DataBindingUtil.bind(itemView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

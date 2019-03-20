@@ -18,7 +18,8 @@
             style="?android:progressBarStyleInverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/app_main_color"/>
+            android:indeterminateDrawable="@drawable/progressbar"
+            />
 
         <TextView
             android:layout_width="wrap_content"
