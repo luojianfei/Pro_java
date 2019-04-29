@@ -102,7 +102,6 @@ public abstract class BaseFragment<T extends NPresenter,G extends ViewDataBindin
         super.setUserVisibleHint(isVisibleToUser);
 
         this.mIsVisible = isVisibleToUser;
-
         if (isVisibleToUser) {
             onVisibleToUser();
         }

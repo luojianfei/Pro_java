@@ -30,6 +30,7 @@ import static com.leo.pro.app.Constant.DOWNLOAD_APK_SAVE_NAME;
 
 public class Fun2Fragment extends BaseFragment<Fun2Presenter, FragmentFun2Binding> implements Fun2Contract.View {
     public static final String TAG = "Fun2Fragment" ;
+
     @Override
     protected int onSetContentView() {
         return R.layout.fragment_fun2;

@@ -95,8 +95,8 @@ public class CustomRecyclerView extends RecyclerView {
     /**
      * 关闭刷新状态
      */
-    public void setEndLoading(){
-        if(viewHeader != null){
+    public void setEndLoading() {
+        if (viewHeader != null) {
             viewHeader.endLoading();
         }
     }
@@ -104,7 +104,7 @@ public class CustomRecyclerView extends RecyclerView {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
-            if (!canScrollVertically(-1)) {
+            if (!canScrollVertically(-1) && hasHeadView) {
                 if (viewHeader == null) {
                     viewHeader = (RecyclerViewHeader) getChildAt(0);
                 }
@@ -126,13 +126,17 @@ public class CustomRecyclerView extends RecyclerView {
                 case MotionEvent.ACTION_MOVE:
                     if ((getTop() > mLayoutTop || (!canScrollVertically(-1) && e.getRawY() > startY)) && hasHeadView) {
                         float offsetY = (e.getRawY() - startY) / 4;
-                        viewHeader.setState(1,actionListener);
-                        viewHeader.setVisibleHeight((int) offsetY);
+                        if (viewHeader != null) {
+                            viewHeader.setState(1, actionListener);
+                            viewHeader.setVisibleHeight((int) offsetY);
+                        }
                         return true;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    viewHeader.setState(2,actionListener);
+                    if (viewHeader != null) {
+                        viewHeader.setState(2, actionListener);
+                    }
                     break;
             }
         }
@@ -228,8 +232,6 @@ public class CustomRecyclerView extends RecyclerView {
     @Override
     public void setAdapter(Adapter adapter) {
         hasHeadView = BaseRecyclerViewAdapter.class.isAssignableFrom(adapter.getClass());
-        if (BaseRecyclerViewAdapter.class.isAssignableFrom(adapter.getClass())) {
-        }
         super.setAdapter(adapter);
     }
 
