@@ -44,15 +44,15 @@ public class TimeUtils {
 
         if (intervalTime == 0) {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            return sdf.format(timeStample);
+            return "今天:"+sdf.format(timeStample);
         } else if (intervalTime == -1) {
             SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-            return "昨天" + sdf1.format(timeStample);
+            return "昨天:" + sdf1.format(timeStample);
         } else if (intervalTime == -2) {
             SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-            return "前天" + sdf1.format(timeStample);
+            return "前天:" + sdf1.format(timeStample);
         } else {
-            SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd");
             return sdf3.format(timeStample);
         }
 

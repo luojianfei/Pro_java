@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -22,30 +19,34 @@
         <RadioGroup
             android:id="@+id/radio_group"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x100"
+            android:layout_height="@dimen/dp_56"
             android:background="#FFFFFF"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rb_main"
                 style="@style/main_radiobutton_stype"
+                android:drawableTop="@drawable/selector_tab_home"
                 android:checked="true"
                 android:text="主页" />
 
             <RadioButton
                 android:id="@+id/rb_fun1"
                 style="@style/main_radiobutton_stype"
-                android:text="模块1" />
+                android:drawableTop="@drawable/selector_tab_pub_task"
+                android:text="公共任务" />
 
             <RadioButton
                 android:id="@+id/rb_fun2"
                 style="@style/main_radiobutton_stype"
-                android:text="模块2" />
+                android:drawableTop="@drawable/selector_tab_nocy"
+                android:text="未能抽样" />
 
             <RadioButton
                 android:id="@+id/rb_fun3"
                 style="@style/main_radiobutton_stype"
-                android:text="模块3" />
+                android:drawableTop="@drawable/selector_tab_info"
+                android:text="信息维护" />
         </RadioGroup>
     </LinearLayout>
 </layout>

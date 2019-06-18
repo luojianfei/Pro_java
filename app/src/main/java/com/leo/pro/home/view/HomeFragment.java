@@ -30,29 +30,11 @@ public class HomeFragment extends BaseFragment<HomePresenter,FragmentHomeBinding
 
     @Override
     public void onInitView() {
-        mViewBinding.layoutTitle.ivBack.setVisibility(View.GONE);
     }
 
     @Override
     public void onInitData(Bundle arguments) {
-        mViewBinding.layoutTitle.setTitle("Home");
-        imgUrls = new ArrayList<>();
-        imgUrls.add("http://e.hiphotos.baidu.com/image/pic/item/eaf81a4c510fd9f993009d8c282dd42a2934a4c4.jpg") ;
-        imgUrls.add("http://e.hiphotos.baidu.com/image/pic/item/eaf81a4c510fd9f993009d8c282dd42a2934a4c4.jpg") ;
-        imgUrls.add("http://e.hiphotos.baidu.com/image/pic/item/eaf81a4c510fd9f993009d8c282dd42a2934a4c4.jpg") ;
-        imgUrls.add("http://e.hiphotos.baidu.com/image/pic/item/eaf81a4c510fd9f993009d8c282dd42a2934a4c4.jpg") ;
-        ArrayList<String> titles = new ArrayList<>() ;
-        titles.add("第一张");
-        titles.add("第二张");
-        titles.add("第三张");
-        titles.add("第四张");
-        mViewBinding.xbanner.setData(imgUrls,titles);
-        mViewBinding.xbanner.setmAdapter(new XBanner.XBannerAdapter() {
-            @Override
-            public void loadBanner(XBanner banner, View view, int position) {
-                Glide.with(getActivity()).load(imgUrls.get(position)).into((ImageView) view);
-            }
-        });
+
     }
 
     @Override

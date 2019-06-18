@@ -22,7 +22,7 @@ public class WelcomeActivity extends Base2Activity<ActivityWelcomeBinding> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mFullScreen = true ;
+        setMFullScreen(true);
         super.onCreate(savedInstanceState);
         startCountDown(3);//倒计时三秒跳入下一界面
     }
@@ -90,7 +90,7 @@ public class WelcomeActivity extends Base2Activity<ActivityWelcomeBinding> {
      * 下一个页面
      */
     private void nextPage(){
-        ActivityUtils.startActivityIntent(mContext, LoginActivity.class);
+        ActivityUtils.startActivityIntent(getMContext(), LoginActivity.class);
         finish();
     }
 }

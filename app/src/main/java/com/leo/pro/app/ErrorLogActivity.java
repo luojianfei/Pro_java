@@ -50,17 +50,17 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
 
     @Override
     public void onInitView() {
-        mLog = new TextView(mContext);
+        mLog = new TextView(getMContext());
         mLog.setBackgroundColor(Color.WHITE);
         mLog.setTextColor(Color.BLACK);
         mLog.setMovementMethod(ScrollingMovementMethod.getInstance());
-        mLog.setPadding((int) getDimen(R.dimen.outside_padding, mContext), (int) getDimen(R.dimen.outside_padding, mContext), (int) getDimen(R.dimen.outside_padding, mContext), (int) getDimen(R.dimen.outside_padding, mContext));
+        mLog.setPadding((int) getDimen(R.dimen.outside_padding, getMContext()), (int) getDimen(R.dimen.outside_padding, getMContext()), (int) getDimen(R.dimen.outside_padding, getMContext()), (int) getDimen(R.dimen.outside_padding, getMContext()));
         mLog.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     @Override
     public void onInitData() {
-        mViewBinding.layoutTitle.setTitle("错误日志");
+        getMViewBinding().layoutTitle.setTitle("错误日志");
         initCrashData();
     }
 
@@ -77,11 +77,11 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
             }
         }
         LogAdapter adapter = new LogAdapter();
-        mViewBinding.crvLog.setAdapter(adapter);
+        getMViewBinding().crvLog.setAdapter(adapter);
     }
     @Override
     public void onInitListener() {
-        mViewBinding.layoutTitle.setViewClickListener(this);
+        getMViewBinding().layoutTitle.setViewClickListener(this);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
      */
     private void showDialog() {
         if (mDialog == null) {
-            mDialog = new AlertDialog.Builder(mContext).create();
+            mDialog = new AlertDialog.Builder(getMContext()).create();
             mDialog.setView(mLog, 0, 0, 0, 0);
             mDialog.setCanceledOnTouchOutside(true);
             mDialog.setCancelable(true);
@@ -105,9 +105,9 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
     class LogAdapter extends RecyclerView.Adapter<LogAdapter.MyHolder> {
         @Override
         public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TextView tv = new TextView(mContext);
-            tv.setPadding((int) getDimen(R.dimen.outside_padding, mContext), (int) getDimen(R.dimen.outside_padding, mContext), 0, (int) getDimen(R.dimen.outside_padding, mContext));
-            tv.setBackgroundDrawable(Res.getDrawableRes(R.drawable.selector_white_bg, mContext));
+            TextView tv = new TextView(getMContext());
+            tv.setPadding((int) getDimen(R.dimen.outside_padding, getMContext()), (int) getDimen(R.dimen.outside_padding, getMContext()), 0, (int) getDimen(R.dimen.outside_padding, getMContext()));
+            tv.setBackgroundDrawable(Res.getDrawableRes(R.drawable.selector_white_bg, getMContext()));
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(params);
             tv.setGravity(Gravity.CENTER_VERTICAL);
@@ -157,7 +157,7 @@ public class ErrorLogActivity extends Base2Activity<ActivityErrorLogBinding> {
      */
     private void showLoding(int position) {
         if (mPrefressDialog == null) {
-            mPrefressDialog = DiaLogUtils.showDialog(mContext, "加载数据中", null);
+            mPrefressDialog = DiaLogUtils.showDialog(getMContext(), "加载数据中", null);
         } else {
             mPrefressDialog.show();
         }

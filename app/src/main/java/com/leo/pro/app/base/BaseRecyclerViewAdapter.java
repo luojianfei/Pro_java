@@ -72,7 +72,7 @@ public abstract class BaseRecyclerViewAdapter<T extends Object> extends Recycler
         return dataInfos.size() + 1;
     }
 
-    public class CustomHolder<G extends ViewDataBinding> extends RecyclerView.ViewHolder {
+    public static class CustomHolder<G extends ViewDataBinding> extends RecyclerView.ViewHolder {
 
         public G viewBinding;
 

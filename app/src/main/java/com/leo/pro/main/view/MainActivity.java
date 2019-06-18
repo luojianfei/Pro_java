@@ -66,7 +66,7 @@ public class MainActivity extends BaseFragmentActivity<MainPresenter, ActivityMa
     }
     @Override
     public void onInitListener() {
-        mViewBinding.setClickListener(this);
+//        mViewBinding.setClickListener(this);
         mViewBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

@@ -7,18 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <include layout="@layout/layout_title"
-            android:id="@+id/layout_title"/>
-        <com.stx.xhb.xbanner.XBanner
-            android:id="@+id/xbanner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x320"
-            app:AutoPlayTime="3000"
-            app:pointsContainerBackground="#E0CCCCCC"
-            app:pointsPosition="RIGHT"
-            app:pointsVisibility="true"
-            app:tipTextColor="#FFFFFFFF"
-            app:tipTextSize="@dimen/x26" />
+
     </LinearLayout>
 
 </layout>
